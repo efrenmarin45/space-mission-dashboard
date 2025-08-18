@@ -23,7 +23,8 @@ const NavItem = ({ to, icon, alt, label, exact = false }) => {
               />
             </button>
             <div className="flex flex-1 items-center justify-center">
-              <p className="font-family-header text-2xl font-semibold">
+              <p className="
+               text-2xl font-semibold">
                 {label}
               </p>
             </div>
