@@ -1,0 +1,17 @@
+{
+  "name": "space-mission-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "wsl -d Ubuntu-24.04 -e bash -c \"export PATH='/home/efren/.local/share/mise/installs/ruby/3.4.5/bin:$PATH' && cd /mnt/c/Users/efren/Dev/space-mission-dashboard/backend && bundle exec rails server\"",
+    "install:frontend": "cd frontend && npm install",
+    "install:backend": "wsl -d Ubuntu-24.04 -e bash -c \"export PATH='/home/efren/.local/share/mise/installs/ruby/3.4.5/bin:$PATH' && cd /mnt/c/Users/efren/Dev/space-mission-dashboard/backend && bundle install\"",
+    "install:all": "npm run install:frontend && npm run install:backend",
+    "build:frontend": "cd frontend && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
