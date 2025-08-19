@@ -1,4 +1,5 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
+import { Vehicles } from '../../components/Vehicles';
 
 export const Route = createLazyFileRoute('/dashboard/vehicles')({
   component: RouteComponent,
@@ -6,7 +7,7 @@ export const Route = createLazyFileRoute('/dashboard/vehicles')({
 
 function RouteComponent() {
   return (
-    <div className="flex h-full border-2 border-[var(--secondary-blue)] bg-[var(--primary-blue)]">
-      <div>Hello "/dashboard/vehicles"!</div>
+    <div className="h-full max-h-screen overflow-y-auto pb-28 border-[var(--secondary-blue)] bg-[var(--primary-blue)]">
+      <Vehicles />
     </div>
   );}
