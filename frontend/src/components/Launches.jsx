@@ -1,9 +1,9 @@
-import tempLogo from "../assets/react.svg";
+import { useLaunchData } from "../api/useLaunchData";
 
 const LaunchBlade = ({
   logo,
   logoName,
-  flightNum,
+  flightType,
   missionName,
   launchStatus,
   missionTime,
@@ -14,10 +14,10 @@ const LaunchBlade = ({
     <>
       <div className="hover:scale-101 font-family-header m-4 flex h-60 transform flex-row content-center rounded-lg bg-black/40 pt-4 text-white shadow-sm shadow-neutral-600 backdrop-blur duration-500">
         <div className="logoCard flex-1/6">
-          <div className="w-30 ml-8 h-8 text-center font-semibold">
-            <p>{logoName}</p>
+          <div className="ml-8 h-8 w-44 text-center font-semibold">
+            <p>{!logoName ? "Unknown" : logoName}</p>
           </div>
-          <div className="w-30 ml-8 h-40 rounded-xl bg-white/10 backdrop-blur">
+          <div className="ml-8 h-44 w-44 rounded-lg bg-white/10 px-1 py-3 backdrop-blur">
             <img className="h-full w-full px-2" src={logo} />
           </div>
         </div>
@@ -31,15 +31,28 @@ const LaunchBlade = ({
             </div>
             <div className="min-w-0 flex-1 px-2">
               <div className="text-sm font-semibold uppercase text-neutral-400">
-                Flight
+                Type
               </div>
-              <div className="truncate text-2xl">{flightNum}</div>
+              <div className="truncate text-2xl">
+                {!flightType ? "Unknown" : flightType}
+              </div>
             </div>
             <div className="min-w-0 flex-1 px-2">
               <div className="text-sm font-semibold uppercase text-neutral-400">
-                Time
+                Time (NET)
               </div>
-              <div className="truncate text-2xl">{missionTime}</div>
+              <div className="truncate text-2xl">
+                {missionTime
+                  ? new Date(missionTime).toLocaleString("en-us", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      timeZoneName: "short",
+                    })
+                  : "Unknown"}
+              </div>
             </div>
           </div>
           <div className="infoSection flex-5/6 flex flex-row">
@@ -60,7 +73,7 @@ const LaunchBlade = ({
                 Status
               </div>
               <div
-                className={`truncate text-2xl ${launchStatus === "SUCCESS" ? `text-shadow-lg text-shadow-neutral-700 bg-green-700` : launchStatus === "FAILURE" ? `text-shadow-lg text-shadow-neutral-700 bg-red-700` : `text-shadow-lg text-shadow-neutral-700 bg-neutral-500`}`}
+                className={`w-fit truncate rounded-lg p-2 text-2xl ${launchStatus === "Launch Successful" || launchStatus === "Go for Launch" ? `text-shadow-lg text-shadow-neutral-700 bg-green-700` : launchStatus === "Launch Failure" ? `text-shadow-lg text-shadow-neutral-700 bg-red-700` : launchStatus === "To Be Confirmed" || launchStatus === "To Be Determined" ? `text-shadow-lg text-shadow-neutral-700 bg-neutral-500` : `text-shadow-lg text-shadow-neutral-700 bg-neutral-500`}`}
               >
                 {launchStatus}
               </div>
@@ -72,124 +85,29 @@ const LaunchBlade = ({
   );
 };
 
-const launchTestInfo = [
-  {
-    logo: tempLogo,
-    logoName: "temp logo1",
-    flightNum: "0001",
-    missionName: "Mission Alpha",
-    launchStatus: "SUCCESS",
-    missionTime: "1 12 2008, 06:40 AM",
-    launchpad: "Apple",
-    rocketName: "RocketOne",
-  },
-  {
-    logo: tempLogo,
-    logoName: "temp logo2",
-    flightNum: "0002",
-    missionName: "Mission Beta",
-    launchStatus: "FAILURE",
-    missionTime: "2 15 2009, 07:30 AM",
-    launchpad: "Banana",
-    rocketName: "RocketTwo",
-  },
-  {
-    logo: tempLogo,
-    logoName: "temp logo3",
-    flightNum: "0003",
-    missionName: "Mission Gamma",
-    launchStatus: "SUCCESS",
-    missionTime: "3 18 2010, 08:20 AM",
-    launchpad: "Cherry",
-    rocketName: "RocketThree",
-  },
-  {
-    logo: tempLogo,
-    logoName: "temp logo4",
-    flightNum: "0004",
-    missionName: "Mission Delta",
-    launchStatus: "PENDING",
-    missionTime: "4 21 2011, 09:10 AM",
-    launchpad: "Date",
-    rocketName: "RocketFour",
-  },
-  {
-    logo: tempLogo,
-    logoName: "temp logo5",
-    flightNum: "0005",
-    missionName: "Mission Epsilon",
-    launchStatus: "FAILURE",
-    missionTime: "5 24 2012, 10:00 AM",
-    launchpad: "Elderberry",
-    rocketName: "RocketFive",
-  },
-  {
-    logo: tempLogo,
-    logoName: "temp logo6",
-    flightNum: "0006",
-    missionName: "Mission Zeta",
-    launchStatus: "SUCCESS",
-    missionTime: "6 27 2013, 10:50 AM",
-    launchpad: "Fig",
-    rocketName: "RocketSix",
-  },
-  {
-    logo: tempLogo,
-    logoName: "temp logo7",
-    flightNum: "0007",
-    missionName: "Mission Eta",
-    launchStatus: "SUCCESS",
-    missionTime: "7 30 2014, 11:40 AM",
-    launchpad: "Grape",
-    rocketName: "RocketSeven",
-  },
-  {
-    logo: tempLogo,
-    logoName: "temp logo8",
-    flightNum: "0008",
-    missionName: "Mission Theta",
-    launchStatus: "FAILURE",
-    missionTime: "8 2 2015, 12:30 PM",
-    launchpad: "Honeydew",
-    rocketName: "RocketEight",
-  },
-  {
-    logo: tempLogo,
-    logoName: "temp logo9",
-    flightNum: "0009",
-    missionName: "Mission Iota",
-    launchStatus: "SUCCESS",
-    missionTime: "9 5 2016, 01:20 PM",
-    launchpad: "Kiwi",
-    rocketName: "RocketNine",
-  },
-  {
-    logo: tempLogo,
-    logoName: "temp logo10",
-    flightNum: "0010",
-    missionName: "Mission Kappa",
-    launchStatus: "SUCCESS",
-    missionTime: "10 8 2017, 02:10 PM",
-    launchpad: "Lemon",
-    rocketName: "RocketTen",
-  },
-];
-
 export const Launches = () => {
+  const { loading, error, launchData } = useLaunchData();
+
+  if (loading) return <p className="text-white">Loading...</p>;
+  if (error) return <p className="text-red-600">{error}</p>;
+  if (!launchData) return <p className="text-white">Launch Data Not Loaded</p>;
+
+  console.log("launchData", launchData);
+
   return (
     <div className="launchDiv">
-      {launchTestInfo.map((item) => {
+      {launchData.results.map((item) => {
         return (
           <LaunchBlade
-            key={item.flightNum}
-            logo={item.logo}
-            logoName={item.logoName}
-            flightNum={item.flightNum}
-            missionName={item.missionName}
-            launchStatus={item.launchStatus}
-            missionTime={item.missionTime}
-            launchpad={item.launchpad}
-            rocketName={item.rocketName}
+            key={item.id}
+            logo={item.image.thumbnail_url}
+            logoName={item.launch_service_provider.name}
+            flightType={item.mission.type}
+            missionName={item.mission.name}
+            launchStatus={item.status.name}
+            missionTime={item.net}
+            launchpad={item.pad.name}
+            rocketName={item.rocket.configuration.name}
           />
         );
       })}

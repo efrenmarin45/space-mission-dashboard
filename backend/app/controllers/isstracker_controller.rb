@@ -3,7 +3,7 @@ class IsstrackerController < ApplicationController
   BASE_URL = "http://api.open-notify.org/iss-now.json"
 
   def index
-    response = HTTParty.get(BASE_URL) # HTTParty with correct capitalization
+    response = HTTParty.get(BASE_URL)
     if response.success?
       render json: response.parsed_response
     else
